@@ -1,20 +1,26 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import {MatCardModule} from '@angular/material/card';
 
 @Component({
   selector: 'inventory',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, MatCardModule],
   template: `
-    <h1>Остатки на складе</h1>
-    <p *ngIf="isAdmin">Только для авторизованных пользователей.</p>
-    <ul>
-      <li>Ванильное - 20 шт</li>
-      <li>Шоколадное - 15 шт</li>
-      <li>Клубничное - 10 шт</li>
-    </ul>
+    <mat-card class="mat-elevation-z2">
+      <mat-card-header>
+        <mat-card-title>Inventory</mat-card-title>
+        <mat-card-subtitle>For authorized users only</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <ul>
+          <li>Vanilla - 20 pcs</li>
+          <li>Chocolate - 15 pcs</li>
+          <li>Strawberry - 10 pcs</li>
+        </ul>
+      </mat-card-content>
+    </mat-card>
   `
 })
 export class Inventory {
-  isAdmin = true;
 }
