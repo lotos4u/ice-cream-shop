@@ -106,7 +106,7 @@ export class AppComponent {
     });
 
     effect(() => {
-      this.cartCount = this.store.cart().reduce((sum, item) => sum + item.amount, 0);
+      this.cartCount = this.store.cart().length;
     });
   }
 

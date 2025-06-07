@@ -114,22 +114,22 @@ export class Menu {
       name: 'Vanilla',
       description: 'Classic vanilla ice cream.',
       image: 'https://via.placeholder.com/300x180.png?text=Vanilla',
-      price: 2.5,
+      price: 2.0,
       amount: 1,
       options: [
         { name: 'Chocolate syrup', price: 0.5, selected: false },
-        { name: 'Nuts', price: 0.7, selected: false }
+        { name: 'Nuts', price: 0.5, selected: false }
       ]
     },
     {
       name: 'Chocolate',
       description: 'Rich cocoa and cream flavor.',
       image: 'https://via.placeholder.com/300x180.png?text=Chocolate',
-      price: 2.7,
+      price: 2.5,
       amount: 1,
       options: [
-        { name: 'Jelly', price: 0.4, selected: false },
-        { name: 'Coconut flakes', price: 0.6, selected: false }
+        { name: 'Jelly', price: 0.5, selected: false },
+        { name: 'Coconut flakes', price: 0.5, selected: false }
       ]
     }
   ];
