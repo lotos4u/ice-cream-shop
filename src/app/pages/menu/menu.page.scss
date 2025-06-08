@@ -1,0 +1,39 @@
+.menu-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+  margin-top: 20px;
+}
+
+.menu-card img {
+  height: 180px;
+  min-height: 180px;
+  object-fit: cover;
+}
+
+.mat-mdc-card-header {
+  display: unset;
+}
+
+.title {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.options {
+  margin-top: 10px;
+}
+
+.actions {
+  margin-top: 30px;
+}
+
+.quantity-selector {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 10px;
+}
