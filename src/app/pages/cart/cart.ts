@@ -24,6 +24,11 @@ export class Cart {
     return this.store.getCartTotal();
   }
 
+  get cartEmpty(): boolean {
+    return this.store.cart().length === 0;
+  }
+
+
   getAllowedOptions(item: IMenuItem): IMenuOption[] {
     return !this.store.options || !item ? this.store.options : this.store.options.filter(o => item.options.includes(o.id));
   }

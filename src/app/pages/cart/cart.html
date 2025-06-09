@@ -2,18 +2,18 @@
   <mat-card-header>
     <div class="cart-title">
       <h2>
-        <ng-container *ngIf="store.getCart().length === 0">Cart is empty</ng-container>
-        <ng-container *ngIf="store.getCart().length > 0">Total: {{ cartTotal | number:'1.2-2' }} €</ng-container>
+        <ng-container *ngIf="cartEmpty">Cart is empty</ng-container>
+        <ng-container *ngIf="!cartEmpty">Total: {{ cartTotal | number:'1.2-2' }} €</ng-container>
       </h2>
       <div>
-        <button mat-raised-button
+        <button *ngIf="!cartEmpty" mat-raised-button
                 [color]="'accent'"
                 (click)="navigateToPayment()"><div class="pay-button-caption"><span>Pay</span><mat-icon>chevron_right</mat-icon></div>
         </button>
       </div>
     </div>
   </mat-card-header>
-  <mat-card-content *ngIf="store.getCart().length > 0" class="cart-container">
+  <mat-card-content *ngIf="!cartEmpty" class="cart-container">
     <mat-card *ngFor="let item of getMenuItems(); let i = index;" class="cart-card mat-elevation-z3">
       <mat-card-header>
         <div class="card-header-content">
