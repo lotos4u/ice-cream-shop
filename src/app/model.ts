@@ -10,11 +10,11 @@ export interface IMenuItem {
 export interface IMenuOption {
   id: string;
   name: string;
-  price: 0.5;
+  price: number;
 }
 
 export interface ISelectedItem {
-  id: string;
+  amount: number;
   menuItemId: string;
   options: string[];
 }

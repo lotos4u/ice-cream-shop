@@ -5,13 +5,14 @@ import {MatCardModule} from '@angular/material/card';
 import {MatButtonModule} from '@angular/material/button';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {FormsModule} from '@angular/forms';
-import {IMenuItem, ISelectedItem} from '../../model';
+import {IMenuItem, IMenuOption, ISelectedItem} from '../../model';
 import {Router} from '@angular/router';
+import {MatIconModule} from '@angular/material/icon';
 
 @Component({
   selector: 'cart',
   standalone: true,
-  imports: [CommonModule, FormsModule, MatCardModule, MatButtonModule, MatCheckboxModule],
+  imports: [CommonModule, FormsModule, MatCardModule, MatButtonModule, MatCheckboxModule, MatIconModule],
   templateUrl: 'cart.html',
   styleUrls: ['cart.scss'],
 })
@@ -46,12 +47,39 @@ export class Cart {
     return itemsCost + optionsCost;
   });
 
+  getAllowedOptions(item: IMenuItem): IMenuOption[] {
+    return !this.store.options || !item ? this.store.options : this.store.options.filter(o => item.options.includes(o.id));
+  }
+
   getMenuItems(): IMenuItem[] {
-    const items = this.store.cart().map(selection => {
+    return this.store.cart().map(selection => {
       return this.store.menu.filter(item => selection.menuItemId === item.id)[0];
     });
-    console.log(this.store.cart(), items);
-    return items;
+  }
+
+  getItemTotalPrice(ind: number) {
+    const amount = this.store.cart()[ind].amount;
+    const menuItemId = this.store.cart()[ind].menuItemId;
+    const item: IMenuItem = this.store.menu.filter(menuItem => menuItem.id === menuItemId)[0];
+    let optionsCost = 0;
+    this.store.options.filter(option => {
+      this.store.cart().forEach(s => {
+        s.options?.forEach(selectedOption => {
+          if (selectedOption === option.id) {
+            optionsCost += option.price;
+          }
+        });
+      });
+    });
+    return (item.price + optionsCost) * amount;
+  }
+
+  onOptionSelection(ind: number, optionId: string, status: boolean): void {
+    this.store.updateOptionStatus(ind, optionId, status);
+  }
+
+  isOptionSelected(ind: number, optionId: string): boolean {
+    return this.store.cart()[ind].options.includes(optionId);
   }
 
   clear(): void {
@@ -63,26 +91,18 @@ export class Cart {
   }
 
   remove(index: number) {
-    const cart = [...this.store.getCart()];
-    cart.splice(index, 1);
-    this.store.cart.set(cart);
-    localStorage.setItem('cart', JSON.stringify(cart));
+    this.store.removeFromCart(index);
   }
 
-  increment(item: ISelectedItem) {
-    // console.log('increment before', this.store.cart);
-    // const amount = item.amount++;
-    // this.store.setCartSelectionAmount(item.id, amount);
+  increment(ind: number) {
+    const amount = this.store.cart()[ind].amount + 1;
+    this.store.setCartSelectionAmount(ind, amount);
   }
 
-  decrement(item: ISelectedItem) {
-    // console.log('decrement before', this.store.cart);
-    // const amount = item.amount > 1 ? item.amount-- : item.amount;
-    // this.store.setCartSelectionAmount(item.id, amount);
+  decrement(ind: number) {
+    const amount = this.store.cart()[ind].amount > 1 ? this.store.cart()[ind].amount - 1 : this.store.cart()[ind].amount;
+    console.log(amount);
+    this.store.setCartSelectionAmount(ind, amount);
   }
 
-  updateStorage() {
-    this.store.cart.set([...this.store.getCart()]);
-    localStorage.setItem('cart', JSON.stringify(this.store.getCart()));
-  }
 }

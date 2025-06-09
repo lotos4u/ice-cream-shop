@@ -22,7 +22,7 @@ import {MatButtonModule} from '@angular/material/button';
         </mat-radio-group>
       </mat-card-content>
       <mat-card-actions>
-        <button mat-raised-button color="primary">Confirm Payment</button>
+        <button mat-raised-button color="primary">Pay</button>
       </mat-card-actions>
     </mat-card>
   `

@@ -1,20 +1,69 @@
+.cart-title {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+
+  .pay-button-caption {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
 .cart-container {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 16px;
+
+  .card-header-content {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  //.mat-mdc-card-header-text {
+  //  width: 100%;
+  //
+  //  .mat-mdc-card-title {
+  //    width: 100%;
+  //    display: flex;
+  //    flex-direction: row;
+  //    justify-content: space-between;
+  //    align-items: center;
+  //  }
+  //}
 }
+
 .quantity-selector {
   display: flex;
   align-items: center;
   gap: 8px;
   margin-top: 10px;
 }
+
 .options {
   margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
 }
+
 .total {
   margin-top: 32px;
   text-align: right;
   font-size: 1.5em;
   font-weight: bold;
+}
+
+.action-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 }

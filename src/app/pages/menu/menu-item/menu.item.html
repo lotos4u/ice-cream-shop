@@ -1,6 +1,6 @@
 <mat-card *ngIf="item" class="menu-card mat-elevation-z4">
   <mat-card-header>
-    <mat-card-title><span class="title"><span>{{ item.name }}</span> <span>{{ item.price }} €</span></span>
+    <mat-card-title><span class="title"><span>{{ item.name }}</span></span>
     </mat-card-title>
     <mat-card-subtitle>{{ item.description }}</mat-card-subtitle>
   </mat-card-header>
@@ -11,7 +11,7 @@
     <div class="quantity-selector">
       <button mat-raised-button class="amount-button" (click)="decrement()" [disabled]="selected.length < 2">-</button>
       <button mat-raised-button color="primary" class="add-to-cart" (click)="addSelectionToCart()">
-        <span>Add {{ selected.length }} to Cart ({{ getItemTotalPrice() }} €)</span>
+        <span>Add {{ selected.length }} to Cart {{ getItemTotalPrice() }} €</span>
       </button>
       <button mat-raised-button class="amount-button" (click)="increment()">+</button>
     </div>

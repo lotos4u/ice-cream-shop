@@ -24,6 +24,10 @@ import {StoreService} from '../../../services/store.service';
   styleUrls: ['menu.item.scss'],
 })
 export class MenuItem {
+  readonly DEFAULT_SELECTION = {
+    amount: 1,
+    options: [],
+  };
   private store = inject(StoreService);
 
   @Input()
@@ -34,7 +38,7 @@ export class MenuItem {
 
   selected: Partial<ISelectedItem>[] = [
     {
-      options: [],
+      ...this.DEFAULT_SELECTION,
     }
   ];
 
@@ -61,7 +65,7 @@ export class MenuItem {
   }
 
   increment() {
-    this.selected.push({options: []});
+    this.selected.push({...this.DEFAULT_SELECTION});
   }
 
   decrement() {
