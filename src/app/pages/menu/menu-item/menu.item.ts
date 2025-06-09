@@ -80,6 +80,9 @@ export class MenuItem {
   }
 
   addSelectionToCart() {
+    this.selected.forEach(s => {
+      s.menuItemId = this.item.id;
+    });
     const copy = JSON.parse(JSON.stringify(this.selected));
     this.store.addToCart(copy);
   }

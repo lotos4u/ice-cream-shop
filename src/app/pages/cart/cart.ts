@@ -6,6 +6,7 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {FormsModule} from '@angular/forms';
 import {IMenuItem, ISelectedItem} from '../../model';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'cart',
@@ -16,6 +17,7 @@ import {IMenuItem, ISelectedItem} from '../../model';
 })
 export class Cart {
   store = inject(StoreService);
+  router = inject(Router);
 
   total = computed(() => {
     const itemToPrice: any = {}
@@ -26,24 +28,38 @@ export class Cart {
     this.store.options.forEach(option => {
       optionToPrice[option.id] = option.price;
     });
-    let val = 0;
+
+    let optionsCost = 0;
+    let itemsCost = 0;
+    this.store.cart().forEach(s => {
+      itemsCost += itemToPrice[s.menuItemId];
+      s.options?.forEach(selectedOption => {
+        optionsCost += optionToPrice[selectedOption];
+      });
+    });
     // this.store.getCart().forEach(selection => {
     //   val += selection.amount * itemToPrice[selection.menuItemId];
     //   selection.options?.forEach(optionId => {
     //     val += optionToPrice[optionId];
     //   });
     // });
-    return val;
+    return itemsCost + optionsCost;
   });
 
   getMenuItems(): IMenuItem[] {
-    return this.store.cart().map(selection => {
+    const items = this.store.cart().map(selection => {
       return this.store.menu.filter(item => selection.menuItemId === item.id)[0];
     });
+    console.log(this.store.cart(), items);
+    return items;
   }
 
   clear(): void {
     this.store.clearCart();
+  }
+
+  navigateToPayment(): void {
+    this.router.navigate(['/payment']);
   }
 
   remove(index: number) {

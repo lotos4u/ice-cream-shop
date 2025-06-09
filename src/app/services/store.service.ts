@@ -1,6 +1,14 @@
 import {Injectable, Provider, signal, WritableSignal} from '@angular/core';
 import {IMenuItem, IMenuOption, ISelectedItem} from '../model';
 
+export enum EOrderStatus {
+  empty = 'Empty',
+  order = 'Ordering',
+  payment = 'Payment in progress',
+  paid = 'Paid',
+  complete = 'Complete',
+}
+
 export interface MenuItem {
   name: string;
   price: number;
@@ -59,7 +67,8 @@ export class StoreService {
   ];
 
   cart: WritableSignal<ISelectedItem[]> = signal([]);
-  orderStatus: WritableSignal<string> = signal('Pending');
+
+  orderStatus: WritableSignal<EOrderStatus> = signal(EOrderStatus.order);
 
   constructor() {
     const storedCart = localStorage.getItem('cart');
@@ -70,7 +79,7 @@ export class StoreService {
       }
     }
 
-    const storedStatus = localStorage.getItem('orderStatus');
+    const storedStatus: EOrderStatus = <EOrderStatus>localStorage.getItem('orderStatus');
     if (storedStatus) {
       this.orderStatus.set(storedStatus);
     }
@@ -104,7 +113,7 @@ export class StoreService {
     return this.cart();
   }
 
-  setOrderStatus(status: string) {
+  setOrderStatus(status: EOrderStatus) {
     this.orderStatus.set(status);
     localStorage.setItem('orderStatus', status);
   }

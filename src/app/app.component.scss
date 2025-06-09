@@ -1,0 +1,40 @@
+.toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 16px;
+}
+
+.toolbar-content {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.title {
+  font-weight: bold;
+  font-size: 18px;
+  color: white;
+  cursor: pointer;
+}
+
+.language {
+  width: 100px;
+}
+
+.language .mat-form-field-infix {
+  //color: white;
+}
+
+.language .mat-select-value-text {
+  //color: white !important;
+}
+
+.cart-badge {
+  background-color: #fff;
+  color: #1976d2;
+  border-radius: 50%;
+  padding: 2px 6px;
+  font-size: 12px;
+  margin-left: 4px;
+}

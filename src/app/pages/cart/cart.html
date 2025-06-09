@@ -1,7 +1,14 @@
-<div *ngIf="store.getCart().length === 0">No items in cart.</div>
-<ng-container *ngIf="store.getCart().length > 0">
-  <h2>Total: {{ total() | number:'1.2-2' }} €</h2>
-  <div class="cart-container">
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>
+      <h2>
+        <ng-container *ngIf="store.getCart().length === 0">Cart is empty</ng-container>
+        <ng-container *ngIf="store.getCart().length > 0">Total: {{ total() | number:'1.2-2' }} €</ng-container>
+      </h2>
+    </mat-card-title>
+    <mat-card-subtitle *ngIf="store.getCart().length > 0">{{ store.orderStatus() }}</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content *ngIf="store.getCart().length > 0" class="cart-container">
     <mat-card *ngFor="let item of getMenuItems(); let i = index;" class="cart-card mat-elevation-z3">
       <mat-card-header>
         <mat-card-title>{{ item.name }}</mat-card-title>
@@ -30,6 +37,8 @@
         <button mat-button color="warn" (click)="remove(i)">Remove</button>
       </mat-card-actions>
     </mat-card>
-  </div>
-  <div><button mat-raised-button (click)="clear()">Clear Cart</button></div>
-</ng-container>
+  </mat-card-content>
+  <mat-card-actions *ngIf="store.getCart().length > 0">
+    <button mat-raised-button (click)="clear()">Clear Cart</button>
+  </mat-card-actions>
+</mat-card>
