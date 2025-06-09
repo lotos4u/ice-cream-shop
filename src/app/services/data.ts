@@ -1,3 +1,5 @@
+export const CURRENCY = '€';
+
 export const OPTIONS = [
   { id: 'kljlihliblasdjhfbgsalghgpd', name: 'Nuts', price: 0.5},
   { id: 'malkjnxasdkakasjnkjakvhshv', name: 'Jelly', price: 0.5},

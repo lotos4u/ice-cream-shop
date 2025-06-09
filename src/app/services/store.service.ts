@@ -45,6 +45,27 @@ export class StoreService {
     }
   }
 
+  getCartTotal() {
+    const itemToPrice: any = {}
+    this.menu.forEach(item => {
+      itemToPrice[item.id] = item.price;
+    });
+    const optionToPrice: any = {}
+    this.options.forEach(option => {
+      optionToPrice[option.id] = option.price;
+    });
+
+    let optionsCost = 0;
+    let itemsCost = 0;
+    this.cart().forEach(s => {
+      itemsCost += itemToPrice[s.menuItemId] * s.amount;
+      s.options?.forEach(selectedOption => {
+        optionsCost += optionToPrice[selectedOption] * s.amount;
+      });
+    });
+    return itemsCost + optionsCost;
+  }
+
   addToCart(items: ISelectedItem[]) {
     items.forEach(item => {
       const existing: ISelectedItem[] = JSON.parse(JSON.stringify(this.cart()));

@@ -21,30 +21,7 @@ export class Cart {
   router = inject(Router);
 
   get cartTotal() {
-    const itemToPrice: any = {}
-    this.store.menu.forEach(item => {
-      itemToPrice[item.id] = item.price;
-    });
-    const optionToPrice: any = {}
-    this.store.options.forEach(option => {
-      optionToPrice[option.id] = option.price;
-    });
-
-    let optionsCost = 0;
-    let itemsCost = 0;
-    this.store.cart().forEach(s => {
-      itemsCost += itemToPrice[s.menuItemId] * s.amount;
-      s.options?.forEach(selectedOption => {
-        optionsCost += optionToPrice[selectedOption] * s.amount;
-      });
-    });
-    // this.store.getCart().forEach(selection => {
-    //   val += selection.amount * itemToPrice[selection.menuItemId];
-    //   selection.options?.forEach(optionId => {
-    //     val += optionToPrice[optionId];
-    //   });
-    // });
-    return itemsCost + optionsCost;
+    return this.store.getCartTotal();
   }
 
   getAllowedOptions(item: IMenuItem): IMenuOption[] {

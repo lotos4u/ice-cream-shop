@@ -1,0 +1,17 @@
+<mat-card class="mat-elevation-z2">
+  <mat-card-header>
+    <mat-card-title>Pay {{ store.getCartTotal() }} {{ CURRENCY }}</mat-card-title>
+    <mat-card-subtitle>Select a payment method</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <mat-radio-group>
+      <mat-radio-button value="card">Credit Card</mat-radio-button><br />
+      <mat-radio-button value="paypal">PayPal</mat-radio-button><br />
+      <mat-radio-button value="cash">Cash</mat-radio-button>
+    </mat-radio-group>
+    <div class="actions">
+      <button mat-raised-button color="primary" (click)="navigateToCart()"><div class="back"><mat-icon>chevron_left</mat-icon><span>Back</span></div></button>
+      <button mat-raised-button color="primary">Pay</button>
+    </div>
+  </mat-card-content>
+</mat-card>
