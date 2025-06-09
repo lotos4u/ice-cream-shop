@@ -32,36 +32,55 @@ export class MenuItem {
   @Input()
   options!: IMenuOption[];
 
-  selected: ISelectedItem = {
-    amount: 1,
-    options: [],
-  };
+  selected: Partial<ISelectedItem>[] = [
+    {
+      options: [],
+    }
+  ];
 
   get allowedOptions(): IMenuOption[] {
     return !this.options || !this.item ? this.options : this.options.filter(o => this.item.options.includes(o.id));
   }
 
-  increment(item: any) {
-    this.selected.amount = (this.selected.amount || 1) + 1;
+  counter(n: number): number[] {
+    return Array.from({ length: n }, (_, i) => i + 1); // [1, 2, 3, ..., n]
   }
 
-  decrement(item: any) {
-    if (this.selected.amount > 1) this.selected.amount--;
+  getItemTotalPrice() {
+    let optionsCost = 0;
+    this.options.filter(option => {
+      this.selected.forEach(s => {
+        s.options?.forEach(selectedOption => {
+          if (selectedOption === option.id) {
+            optionsCost += option.price;
+          }
+        });
+      });
+    });
+    return this.item.price * this.selected.length + optionsCost;
   }
 
-  onOptionSelection(optionId: string, status: boolean): void {
-    if (status && !this.selected.options.includes(optionId)) {
-      this.selected.options.push(optionId);
-    }
-    if (!status && this.selected.options.includes(optionId)) {
-      this.selected.options = this.selected.options.filter(o => o !== optionId);
+  increment() {
+    this.selected.push({options: []});
+  }
+
+  decrement() {
+    if (this.selected.length > 1) {
+      this.selected.pop();
     }
   }
 
-  addSingleItem(item: any) {
-    const copy = JSON.parse(JSON.stringify(item));
-    for (let i = 0; i < item.amount; i++) {
-      this.store.addToCart(copy);
+  onOptionSelection(ind: number, optionId: string, status: boolean): void {
+    if (status && !this.selected[ind].options?.includes(optionId)) {
+      this.selected[ind].options?.push(optionId);
     }
+    if (!status && this.selected[ind].options?.includes(optionId)) {
+      this.selected[ind].options = this.selected[ind].options?.filter(o => o !== optionId);
+    }
+  }
+
+  addSelectionToCart() {
+    const copy = JSON.parse(JSON.stringify(this.selected));
+    this.store.addToCart(copy);
   }
 }

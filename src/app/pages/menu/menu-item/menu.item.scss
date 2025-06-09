@@ -9,6 +9,8 @@
   height: 180px;
   min-height: 180px;
   object-fit: cover;
+  display: block;
+  margin: 0 auto;
 }
 
 .mat-mdc-card-header {
@@ -28,7 +30,14 @@
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
+  padding: 10px;
   margin-top: 10px;
+  border: 1px solid #dedede;
+  border-radius: 5px;
+
+  .mat-mdc-checkbox {
+    margin-left: -10px;
+  }
 }
 
 .actions {
@@ -37,7 +46,26 @@
 
 .quantity-selector {
   display: flex;
+  flex-direction: row;
+  justify-content: space-between;
   align-items: center;
   gap: 8px;
   margin-top: 10px;
+
+  .add-to-cart {
+    width: 70%;
+    min-width: 70%;
+  }
+
+  .amount-button {
+    width: 30px;
+    height: 40px;
+    max-width: 30px;
+    max-height: 40px;
+    min-width: 30px;
+    min-height: 40px;
+  }
+  button:not(:disabled) {
+    cursor: pointer;
+  }
 }

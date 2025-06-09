@@ -14,6 +14,7 @@ export interface IMenuOption {
 }
 
 export interface ISelectedItem {
-  amount: number;
+  id: string;
+  menuItemId: string;
   options: string[];
 }

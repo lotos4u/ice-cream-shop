@@ -1,10 +1,12 @@
 <!--    <h1>Ice Cream Menu</h1>-->
 <div class="menu-container">
-  <menu-item *ngFor="let item of menu; let i = index" [options]="options" [item]="item">
+  <menu-item *ngFor="let item of store.menu; let i = index"
+             [options]="store.options"
+             [item]="item">
   </menu-item>
 </div>
 
 <div class="actions" *ngIf="isLoggedIn()">
   <h3>Edit Menu</h3>
-  <button mat-stroked-button (click)="addItem()">Add Item</button>
+<!--  <button mat-stroked-button (click)="addItem()">Add Item</button>-->
 </div>
