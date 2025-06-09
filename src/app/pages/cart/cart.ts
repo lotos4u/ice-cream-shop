@@ -20,7 +20,7 @@ export class Cart {
   store = inject(StoreService);
   router = inject(Router);
 
-  total = computed(() => {
+  get cartTotal() {
     const itemToPrice: any = {}
     this.store.menu.forEach(item => {
       itemToPrice[item.id] = item.price;
@@ -33,9 +33,9 @@ export class Cart {
     let optionsCost = 0;
     let itemsCost = 0;
     this.store.cart().forEach(s => {
-      itemsCost += itemToPrice[s.menuItemId];
+      itemsCost += itemToPrice[s.menuItemId] * s.amount;
       s.options?.forEach(selectedOption => {
-        optionsCost += optionToPrice[selectedOption];
+        optionsCost += optionToPrice[selectedOption] * s.amount;
       });
     });
     // this.store.getCart().forEach(selection => {
@@ -45,7 +45,7 @@ export class Cart {
     //   });
     // });
     return itemsCost + optionsCost;
-  });
+  }
 
   getAllowedOptions(item: IMenuItem): IMenuOption[] {
     return !this.store.options || !item ? this.store.options : this.store.options.filter(o => item.options.includes(o.id));
@@ -63,6 +63,7 @@ export class Cart {
     const item: IMenuItem = this.store.menu.filter(menuItem => menuItem.id === menuItemId)[0];
     let optionsCost = 0;
     this.store.options.filter(option => {
+      optionsCost = 0;
       this.store.cart().forEach(s => {
         s.options?.forEach(selectedOption => {
           if (selectedOption === option.id) {
@@ -101,7 +102,6 @@ export class Cart {
 
   decrement(ind: number) {
     const amount = this.store.cart()[ind].amount > 1 ? this.store.cart()[ind].amount - 1 : this.store.cart()[ind].amount;
-    console.log(amount);
     this.store.setCartSelectionAmount(ind, amount);
   }
 

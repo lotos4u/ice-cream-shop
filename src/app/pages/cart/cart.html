@@ -1,10 +1,9 @@
 <mat-card>
   <mat-card-header>
-    <!--    <mat-card-title>-->
     <div class="cart-title">
       <h2>
         <ng-container *ngIf="store.getCart().length === 0">Cart is empty</ng-container>
-        <ng-container *ngIf="store.getCart().length > 0">Total: {{ total() | number:'1.2-2' }} €</ng-container>
+        <ng-container *ngIf="store.getCart().length > 0">Total: {{ cartTotal | number:'1.2-2' }} €</ng-container>
       </h2>
       <div>
         <button mat-raised-button
@@ -13,8 +12,6 @@
         </button>
       </div>
     </div>
-    <!--    </mat-card-title>-->
-    <!--    <mat-card-subtitle *ngIf="store.getCart().length > 0">{{ store.orderStatus() }}</mat-card-subtitle>-->
   </mat-card-header>
   <mat-card-content *ngIf="store.getCart().length > 0" class="cart-container">
     <mat-card *ngFor="let item of getMenuItems(); let i = index;" class="cart-card mat-elevation-z3">
@@ -25,8 +22,6 @@
             <mat-icon>close</mat-icon>
           </button>
         </div>
-        <!--        <mat-card-subtitle>{{ item.description }}</mat-card-subtitle>-->
-        <!--        <mat-card-title><span>{{ item.name }}</span><mat-icon>close</mat-icon></mat-card-title>-->
       </mat-card-header>
       <mat-card-content>
         <p>Base: {{ item.price }} €</p>
@@ -37,31 +32,17 @@
                         (change)="onOptionSelection(i, opt.id, $event.checked)">
             {{ opt.name }} (+{{ opt.price }} €)
           </mat-checkbox>
-          <!--          <mat-checkbox *ngFor="let opt of item.options" [(ngModel)]="opt.selected"-->
-          <!--                        (ngModelChange)="updateStorage()">-->
-          <!--            {{ opt.name }} (+{{ opt.price }} €)-->
-          <!--          </mat-checkbox>-->
         </div>
         <div class="quantity-selector">
-          <button mat-raised-button class="amount-button" (click)="decrement(i)" [disabled]="false">-</button>
-          <!--          <button mat-raised-button color="primary" class="add-to-cart" (click)="addSelectionToCart()">-->
-          <span>{{ store.cart()[i].amount }} {{ getItemTotalPrice(i) }} €</span>
-          <!--          </button>-->
+          <button mat-raised-button class="amount-button" (click)="decrement(i)" [disabled]="store.cart()[i].amount < 2">-</button>
+          <span>{{ store.cart()[i].amount }} </span>
           <button mat-raised-button class="amount-button" (click)="increment(i)">+</button>
         </div>
         <div class="quantity-selector">
-          <!--          <button mat-mini-button (click)="decrement(item)">-</button>-->
-          <!--          <span>{{ item.amount }}</span>-->
-          <!--          <button mat-mini-button (click)="increment(item)">+</button>-->
+          Item total: {{ getItemTotalPrice(i) }} €
         </div>
       </mat-card-content>
-      <!--      <mat-card-actions>-->
-      <!--        <button mat-button color="warn" (click)="remove(i)">Remove</button>-->
-      <!--      </mat-card-actions>-->
     </mat-card>
     <button mat-raised-button [color]="'warn'" (click)="clear()">Clear Cart</button>
   </mat-card-content>
-  <!--  <mat-card-actions *ngIf="store.getCart().length > 0" class="action-buttons">-->
-  <!--   -->
-  <!--  </mat-card-actions>-->
 </mat-card>

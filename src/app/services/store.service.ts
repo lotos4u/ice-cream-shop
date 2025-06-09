@@ -117,7 +117,6 @@ export class StoreService {
 
   public setCartSelectionAmount(ind: number, amount: number): void {
     this.cart()[ind].amount = amount;
-    console.log('setCartSelectionAmount', this.cart());
     this.updateCartInStorage();
   }
 
